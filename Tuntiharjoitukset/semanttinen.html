@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ota yhteyttä</title>
+</head>
+<body>
+    <style>
+        /* Lomakkeen perusasettelu */
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+/* Kenttien ryhmittely */
+form div {
+  margin-bottom: 1.5rem;
+}
+
+/* Label-tekstit */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Tekstikentät, valintalistan ja tekstialueen tyylit */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #111827;
+  background-color: #f9fafb;
+  border: 2px solid #9ca3af; /* Vahva kontrasti reunoissa */
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+/* Saavutettava kohdistus (Focus) */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: 3px solid #2563eb; /* Erittäin selkeä sininen kohdistuskehys */
+  outline-offset: 2px;
+}
+
+/* Ohjeet ja virheilmoitukset */
+#message-hint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.error-message {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #b91c1c; /* Saavutettava punainen väri virheille */
+  font-weight: 500;
+}
+
+/* Checkbox-kentän erityisasettelu */
+form div:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label {
+  display: inline;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Painikkeen tyylit */
+button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1d4ed8; /* Korkea kontrasti valkoisen tekstin kanssa */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+/* Pakollisen kentän tähden väri */
+span[aria-hidden="true"] {
+  color: #b91c1c;
+}
+
+    </style>
+    <form action="#" method="POST" novalidate>
+  <h2>Ota yhteyttä</h2>
+  
+  <div>
+    <label for="name">Nimi <span aria-hidden="true">*</span></label>
+    <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+  </div>
+
+  <div>
+    <label for="email">Sähköposti <span aria-hidden="true">*</span></label>
+    <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" aria-describedby="email-error">
+    <span id="email-error" class="error-message" hidden>Kirjoita kelvollinen sähköpostiosoite.</span>
+  </div>
+
+  <div>
+    <label for="phone">Puhelinnumero</label>
+    <input type="tel" id="phone" name="phone" autocomplete="tel">
+  </div>
+
+  <div>
+    <label for="subject">Aihealue <span aria-hidden="true">*</span></label>
+    <select id="subject" name="subject" required aria-required="true">
+      <option value="">Valitse aihe</option>
+      <option value="general">Yleinen tiedustelu</option>
+      <option value="support">Tuki</option>
+      <option value="feedback">Palaute</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="message">Viesti <span aria-hidden="true">*</span></label>
+    <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="message-hint"></textarea>
+    <span id="message-hint">Kerro asiasi mahdollisimman tarkasti.</span>
+  </div>
+
+  <div>
+    <input type="checkbox" id="privacy" name="privacy" required aria-required="true">
+    <label for="privacy">Hyväksyn tietosuojaselosteen <span aria-hidden="true">*</span></label>
+  </div>
+
+  <div>
+    <button type="submit">Lähetä viesti</button>
+  </div>
+</form>
+
+</body>
+</html>
