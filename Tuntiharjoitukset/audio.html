@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast ja automaattinen tekstivastine</title>
+    <style>
+        /* Sivun perusmuotoilu */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.6; 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 0 20px; 
+            color: #333;
+        }
+
+        h1 {
+            color: #111;
+            margin-bottom: 5px;
+        }
+        
+        /* Kiinnitetty soitin: pysyy ruudun yläreunassa rullatessa */
+        audio { 
+            width: 100%; 
+            margin: 20px 0; 
+            position: sticky; 
+            top: 0; 
+            background: white; 
+            z-index: 100; 
+            padding: 10px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
+        }
+        
+        h2 {
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        /* Tekstirivien muotoilu */
+        .transcript-block { 
+            padding: 12px 15px;
+            margin-bottom: 8px; 
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
+            color: #666;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        /* Tyyli parhaillaan kuuluvalle tekstille (Karaoke-efekti) */
+        .transcript-block.active { 
+            color: #000;
+            background-color: #f0f7ff;
+            border-left-color: #0066cc;
+            font-weight: 500;
+        }
+        
+        /* Aikaleiman ja puhujan tyyli */
+        .timestamp { 
+            color: #999; 
+            font-size: 0.9em; 
+            margin-right: 8px; 
+            font-family: monospace; 
+            font-weight: bold;
+        }
+        
+        .active .timestamp { 
+            color: #0066cc; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Podcast-jakso</h1>
+    
+    <!-- Audio-soitin -->
+    <audio id="podcast-audio" controls>
+        <source src="sound/tim_dillon.mp3" type="audio/mpeg">
+        Selaimesi ei tue audio-elementtiä.
+    </audio>
+
+    <!-- Tekstivastineosio -->
+    <section aria-labelledby="transcript-heading">
+        <h2 id="transcript-heading">Tekstivastine</h2>
+        <!-- JavaScript rakentaa koko tunnin tekstin automaattisesti tämän laatikon sisään -->
+        <div id="transcript-container">Ladataan tekstivastinetta tiedostosta...</div>
+    </section>
+
+    <!-- JavaScript-ohjelma, joka hoitaa tekstin latauksen ja synkronoinnin -->
+    <script>
+        const audio = document.getElementById('podcast-audio');
+        const container = document.getElementById('transcript-container');
+        let blocks = [];
+
+        // Muuttaa muodon "01:23:45" tai "00:12" sekunneiksi seurantaa varten
+        function timeToSeconds(timeStr) {
+            const parts = timeStr.split(':').map(Number);
+            if (parts.length === 3) {
+                return (parts[0] * 3600) + (parts[1] * 60) + parts[2];
+            } else if (parts.length === 2) {
+                return (parts[0] * 60) + parts[1];
+            }
+            return 0;
+        }
+
+        // Haetaan tekstitiedosto automaattisesti kansion sisältä
+        fetch('sound/tim_dillon_text.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Tiedostoa ei löytynyt tai sitä ei voitu ladata.');
+                }
+                return response.text();
+            })
+            .then(text => {
+                container.innerHTML = ''; // Tyhjennetään latausteksti
+                
+                // Pilkotaan teksti riveihin riippumatta käyttöjärjestelmästä
+                const lines = text.split(/\r?\n/);
+                let currentTimestamp = '';
+                let currentSpeaker = '';
+
+                lines.forEach(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return;
+
+                    // Tunnistetaan aikaleimarivi (esim. 00:00:12 Puhuja 1)
+                    const timeMatch = trimmed.match(/^(\d{2}:\d{2}:\d{2}|\d{2}:\d{2})\s+(.+)/);
+
+                    if (timeMatch) {
+                        currentTimestamp = timeMatch[1];
+                        currentSpeaker = timeMatch[2];
+                    } else if (currentTimestamp) {
+                        // Luodaan siisti tekstilaatikko sivulle
+                        const seconds = timeToSeconds(currentTimestamp);
+                        const blockDiv = document.createElement('div');
+                        blockDiv.className = 'transcript-block';
+                        blockDiv.setAttribute('data-time', seconds);
+                        
+                        blockDiv.innerHTML = `<span class="timestamp">[${currentTimestamp}] ${currentSpeaker}:</span> ${trimmed}`;
+                        container.appendChild(blockDiv);
+                        
+                        // Tallennetaan muistiin soiton seurantaa varten
+                        blocks.push(blockDiv);
+                        currentTimestamp = ''; // Nollataan ja odotetaan seuraavaa lausetta
+                    }
+                });
+
+                // Kun teksti on ladattu onnistuneesti, käynnistetään kuuntelija
+                initAudioTracker();
+            })
+            .catch(err => {
+                container.innerHTML = '<p style="color: red;">Tekstivastatteen lataaminen epäonnistui. Varmista, että tiedosto on kansiossa nimellä tim_dillon_text.txt</p>';
+                console.error(err);
+            });
+
+        // Seurataan audion etenemistä, tummennetaan oikea rivi ja rullataan sivua
+        function initAudioTracker() {
+            audio.addEventListener('timeupdate', () => {
+                const currentTime = audio.currentTime;
+                let activeBlock = null;
+
+                // Etsitään parhaillaan kuuluva laatikko ajan perusteella
+                blocks.forEach(block => {
+                    const blockTime = parseFloat(block.getAttribute('data-time'));
+                    if (currentTime >= blockTime) {
+                        activeBlock = block;
+                    }
+                });
+
+                // Päivitetään aktiivisen laatikon CSS-tyylit ja skrollataan
+                blocks.forEach(block => {
+                    if (block === activeBlock) {
+                        if (!block.classList.contains('active')) {
+                            block.classList.add('active');
+                            // Kelaa näkymää automaattisesti niin, että teksti pysyy ruudun keskellä
+                            block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                        block.classList.remove('active');
+                    }
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
