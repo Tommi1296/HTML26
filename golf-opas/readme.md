@@ -69,6 +69,8 @@ loogisen otsikkohierarkian ja kuvaavat linkkitekstit.
 
 - Testasin sivustoa myös näppäimistöllä.
 
+- Saavutettavuuden tarkistuksessa tuli 2 Alertia, Videon tektityksestä sekä äänitiedoston teksti vastineesta. Minulla ei ollut tarpeen tehdä näihin muutoksia, sillä videossa oli oma tekstitys mikä vaikutti sopivalta sekä äänitiedostossa ei ollut puhetta mitä tekstittää.
+
 Mitä tekisit sivustolle seuraavaksi, jos saisit käyttää CSS:ää?
 
 - Lisäisin sivustolle yhtenäisen värimaailman, paremman navigaation,
