@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf-opas – Yhteydenotto</title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Ota yhteyttä</h1>
+
+        <nav aria-label="Päänavigaatio">
+            <ul>
+                <li><a href="../index.html">Etusivu</a></li>
+                <li><a href="golfista.html">Tietoa golfista</a></li>
+                <li><a href="pelaaminen.html">Pelaaminen</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="yhteydenotto.html">Yhteydenotto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section>
+
+            <h2>Ilmoittaudu golfkokeiluun</h2>
+
+            <p>
+                Tällä harjoituslomakkeella voit ilmoittautua kuvitteelliseen
+                golfkokeiluun.
+            </p>
+
+            <form>
+
+                <fieldset>
+
+                    <legend>Yhteystiedot</legend>
+
+                    <p>
+                        <label for="nimi">Nimi</label><br>
+
+                        <input
+                            type="text"
+                            id="nimi"
+                            name="nimi"
+                            required
+                            maxlength="100"
+                            placeholder="Etunimi Sukunimi">
+                    </p>
+
+                    <p>
+                        <label for="email">Sähköpostiosoite</label><br>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="nimi@example.com">
+                    </p>
+
+                    <p>
+                        <label for="puhelin">Puhelinnumero</label><br>
+
+                        <input
+                            type="tel"
+                            id="puhelin"
+                            name="puhelin"
+                            placeholder="040 123 4567">
+                    </p>
+
+                    <p>
+                        <label for="ika">Ikä</label><br>
+
+                        <input
+                            type="number"
+                            id="ika"
+                            name="ika"
+                            min="10"
+                            max="100">
+                    </p>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>Golfkokeilu</legend>
+
+                    <p>
+                        <label for="paiva">Valitse päivä</label><br>
+
+                        <input
+                            type="date"
+                            id="paiva"
+                            name="paiva">
+                    </p>
+
+                    <p>
+                        <label for="aika">Valitse aloitusaika</label><br>
+
+                        <input
+                            type="time"
+                            id="aika"
+                            name="aika">
+                    </p>
+
+                    <p>
+                        <label for="kokemus">Golfkokemus</label><br>
+
+                        <select id="kokemus" name="kokemus">
+
+                            <option value="">Valitse vaihtoehto</option>
+
+                            <option value="ei-kokemusta">
+                                En ole pelannut golfia
+                            </option>
+
+                            <option value="aloittelija">
+                                Olen kokeillut golfia
+                            </option>
+
+                            <option value="harrastaja">
+                                Pelaan golfia säännöllisesti
+                            </option>
+
+                        </select>
+                    </p>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>Tarvitsetko lainavarusteita?</legend>
+
+                    <p>
+                        <input
+                            type="radio"
+                            id="varusteet-kylla"
+                            name="varusteet"
+                            value="kylla"
+                            checked>
+
+                        <label for="varusteet-kylla">
+                            Kyllä
+                        </label>
+                    </p>
+
+                    <p>
+                        <input
+                            type="radio"
+                            id="varusteet-ei"
+                            name="varusteet"
+                            value="ei">
+
+                        <label for="varusteet-ei">
+                            En tarvitse
+                        </label>
+                    </p>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>Kiinnostuksen kohteet</legend>
+
+                    <p>
+                        <input
+                            type="checkbox"
+                            id="range"
+                            name="kiinnostus"
+                            value="range">
+
+                        <label for="range">
+                            Driving range
+                        </label>
+                    </p>
+
+                    <p>
+                        <input
+                            type="checkbox"
+                            id="puttaus"
+                            name="kiinnostus"
+                            value="puttaus">
+
+                        <label for="puttaus">
+                            Puttaaminen
+                        </label>
+                    </p>
+
+                    <p>
+                        <input
+                            type="checkbox"
+                            id="kentta"
+                            name="kiinnostus"
+                            value="kentta">
+
+                        <label for="kentta">
+                            Pelaaminen golfkentällä
+                        </label>
+                    </p>
+
+                </fieldset>
+
+                <p>
+                    <label for="viesti">
+                        Lisätiedot
+                    </label><br>
+
+                    <textarea
+                        id="viesti"
+                        name="viesti"
+                        rows="6"
+                        cols="50"
+                        maxlength="500"
+                        placeholder="Kirjoita mahdolliset lisätiedot tähän"></textarea>
+                </p>
+
+                <p>
+                    <button type="submit">
+                        Lähetä ilmoittautuminen
+                    </button>
+                </p>
+
+            </form>
+
+        </section>
+
+        <section>
+
+            <h2>Yhteystiedot</h2>
+
+            <address>
+
+                Golf-opas<br>
+
+                Sähköposti:
+                <a href="mailto:info@golfopas.fi">
+                info@golfopas.fi
+                </a>
+
+            </address>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            <a href="../index.html">Takaisin Golf-oppaan etusivulle</a>
+        </p>
+
+        <p>Golf-opas – HTML-harjoitustyö</p>
+
+    </footer>
+
+</body>
+
+</html>
