@@ -1,0 +1,60 @@
+body {
+    background-color: #AA7D39;
+    color: black;
+    font-family: Verdana, sans-serif;
+    margin: 1% 5%;
+    line-height: 150%;
+}
+
+h1 {
+    margin: 1.5em 1em;
+}
+
+/* Navigointipalkki */
+
+.navigointipalkki ul {
+    list-style-type: none;
+    background-color: #5F421D;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.navigointipalkki li {
+    float: left;
+}
+
+.navigointipalkki a {
+    display: block;
+    color: white;
+    padding: 0 40px;
+    text-decoration: none;
+}
+
+.navigointipalkki a:hover {
+    background-color: #19171E;
+}
+
+/* Pasi-Anssin kuva */
+
+.kuva {
+    float: right;
+    width: 300px;
+    margin: 20px;
+}
+
+/* YouTube-videot */
+
+.video {
+    width: 480px;
+    height: 270px;
+    position: relative;
+    margin: 10px;
+    border: 0;
+}
+
+/* Vieraskirja */
+
+.vieraskirja {
+    text-align: center;
+}
